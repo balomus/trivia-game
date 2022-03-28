@@ -3,42 +3,47 @@ import { useDispatch, useSelector } from "react-redux";
 import { selectAmount, selectCategory, setAmount, setCategory } from "./builderSlice";
 
 const Builder = () => {
-  const [fullCategories, setFullCategories] = useState(null);
+  const [fullCategories, setFullCategories] = useState([ { id: 999, name: "All Categories" } ]);
 
   useEffect(() => {
     setFullCategories(async () => {
       try {
         const response = await fetch("https://opentdb.com/api_category.php");
         const data = await response.json();
-        console.log(data);
-        return response.data;
+        console.log([{ id: 999, name: "All Categories" }, ...data.trivia_categories]);
+        return [{ id: 999, name: "All Categories" }, ...data.trivia_categories];
       } catch (error) {
         return error;
       }
     });
   }, []);
 
-  console.log(fullCategories);
+  // console.log(fullCategories);
 
   const dispatch = useDispatch();
   const amount = useSelector(selectAmount);
   const category = useSelector(selectCategory);
 
-  let categories = [ { id: 999, name: "All Categories" } ]
-  let fullCategoriesResponse = async () => {
-    try {
-      const response = await fetch("https://opentdb.com/api_category.php");
-      const data = await response.json();
-      console.log(data);
-      return response.data;
-    } catch (error) {
-      return error;
-    }
-  }
+  // const categoryList = fullCategories.map((category) => {
+  //   <option key={category.id}>{ category.name }</option>
+  // });
 
-  console.log(fullCategoriesResponse);
+  // let categories = [ { id: 999, name: "All Categories" } ]
+  // categories.push(async () => {
+  //   try {
+  //     const response = await fetch("https://opentdb.com/api_category.php");
+  //     const data = await response.json();
+  //     console.log(data);
+  //     return response.data;
+  //   } catch (error) {
+  //     return error;
+  //   }
+  // });
 
-  categories.push()
+
+  // console.log(fullCategoriesResponse);
+
+  // categories.push()
   // const [amount, setAmount] = useState(10);
   // const [category, setCategory] = useState(9);
   // const [difficulty, setDifficulty] = useState("easy");
@@ -73,6 +78,8 @@ const Builder = () => {
             <option value="40">40</option>
             <option value="50">50</option>
           </select>
+
+          <br></br>
 
           Category:
           <select name="category" id="category-select" value={category} onChange={(e) => dispatch(setCategory(e.target.value))}>
