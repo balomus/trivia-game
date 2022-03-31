@@ -3,19 +3,28 @@ import { useDispatch, useSelector } from "react-redux";
 import { selectAmount, selectCategory, setAmount, setCategory } from "./builderSlice";
 
 const Builder = () => {
-  const [fullCategories, setFullCategories] = useState([ { id: 999, name: "All Categories" } ]);
+  const [fullCategories, setFullCategories] = useState([{ id: 999, name: "All Categories" }]);
+
+  const fetchMyAPI = async () => {
+    let response = await fetch("https://opentdb.com/api_category.php");
+    let data = await response.json();
+    setFullCategories([{id: 999, name: "All Categories"}, ...data.trivia_categories]);
+    console.log(data.trivia_categories);
+  }
 
   useEffect(() => {
-    setFullCategories(async () => {
-      try {
-        const response = await fetch("https://opentdb.com/api_category.php");
-        const data = await response.json();
-        console.log([{ id: 999, name: "All Categories" }, ...data.trivia_categories]);
-        return [{ id: 999, name: "All Categories" }, ...data.trivia_categories];
-      } catch (error) {
-        return error;
-      }
-    });
+    fetchMyAPI();
+    // console.log(fullCategories);
+    // setFullCategories(async () => {
+    //   try {
+    //     const response = await fetch("https://opentdb.com/api_category.php");
+    //     const data = await response.json();
+    //     console.log([{ id: 999, name: "All Categories" }, ...data.trivia_categories]);
+    //     return [{ id: 999, name: "All Categories" }, ...data.trivia_categories];
+    //   } catch (error) {
+    //     return error;
+    //   }
+    // });
   }, []);
 
   // console.log(fullCategories);
@@ -24,45 +33,11 @@ const Builder = () => {
   const amount = useSelector(selectAmount);
   const category = useSelector(selectCategory);
 
+  const array = [{id: 1, name: 'one'}, {id: 2, name: 'two'}, {id: 3, name: 'three'}];
+
   // const categoryList = fullCategories.map((category) => {
   //   <option key={category.id}>{ category.name }</option>
   // });
-
-  // let categories = [ { id: 999, name: "All Categories" } ]
-  // categories.push(async () => {
-  //   try {
-  //     const response = await fetch("https://opentdb.com/api_category.php");
-  //     const data = await response.json();
-  //     console.log(data);
-  //     return response.data;
-  //   } catch (error) {
-  //     return error;
-  //   }
-  // });
-
-
-  // console.log(fullCategoriesResponse);
-
-  // categories.push()
-  // const [amount, setAmount] = useState(10);
-  // const [category, setCategory] = useState(9);
-  // const [difficulty, setDifficulty] = useState("easy");
-  // const [type, setType] = useState("multiple");
-  // const [questions, setQuestions] = useState();
-  // const [currentQuestion, setCurrentQuestion] = useState(0);
-
-  // const handleClick = async () => {
-  //     try{
-  //       const response = await fetch("https://opentdb.com/api.php?amount=" + amount + "&category=" + category + "&difficulty=" + difficulty + "&type="  + type)
-  //       const data = await response.json();
-  //       setQuestions(data);
-  //       console.log(data);
-  //       console.log("question - " + data.results[currentQuestion].question + " answer - " + data.results[currentQuestion].correct_answer);
-  //     }
-  //     catch (error) {
-  //       console.error(error);
-  //     }
-  // }
 
   const handleClick = () => {
     console.log("clicked");
@@ -83,12 +58,27 @@ const Builder = () => {
 
           Category:
           <select name="category" id="category-select" value={category} onChange={(e) => dispatch(setCategory(e.target.value))}>
-            <option value="All Categories">All Categories</option>
+            {fullCategories.map((item) => {
+              return <option value={item.id} key={item.id}>{item.name}</option>
+            })}
+            {/* <option value="All Categories">All Categories</option> */}
           </select>
           <p>Sample API URL: https://opentdb.com/api.php?amount={amount}&category=*&difficulty=*&type=*</p>
           <button onClick={handleClick}>Get Trivia Questions</button>
+          {/* {array.map((item) => {
+            return <p key={item.id}>{item.name}</p>
+          })} */}
+
+          <div>
+            {fullCategories.map((item) => (
+              <p key={item.id}>{item.name}</p>
+            ))}
+          </div>
       </div>
     );
 }
+
+
+
  
 export default Builder;
