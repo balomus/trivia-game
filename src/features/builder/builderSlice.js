@@ -2,9 +2,9 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
 
 const initialState = {
     amount: "20",
-    category: "9",
-    difficulty: "easy",
-    type: "multiple"
+    category: "",
+    difficulty: "",
+    type: ""
 }
 
 export const getQuestions = createAsyncThunk(
@@ -43,6 +43,11 @@ export const builderSlice = createSlice({
         setType: (state, action) => {
             state.type = action.payload;
         }
+    },
+    extraReducers: (builder) => {
+        builder.addCase(getQuestions.fulfilled, (state, action) => {
+            state.entities.push(action.payload);
+        })
     }
 });
 
