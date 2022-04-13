@@ -4,28 +4,29 @@ const initialState = {
     amount: "20",
     category: "",
     difficulty: "",
-    type: ""
+    type: "",
+    apiResponse: []
 }
 
-export const getQuestions = createAsyncThunk(
-    'builder/getTriviaQuestions',
-    async (amount, category, difficulty, type) => {
-        try {
-            const response = await fetch(
-                "https://opentdb.com/api.php?amount=" + amount + 
-                "&category=" + category + 
-                "&difficulty=" + difficulty + 
-                "&type=" + type);
-            const data = await response.json();
-            // setQuestions(data);
-            console.log(data);
-            // console.log("question - " + data.results[currentQuestion].question + " answer - " + data.results[currentQuestion].correct_answer);
-            return response.data;
-        } catch (error) {
-            return error;
-        }
-    }
-);
+// export const getQuestions = createAsyncThunk(
+//     'builder/getTriviaQuestions',
+//     async (amount, category, difficulty, type) => {
+//         try {
+//             const response = await fetch(
+//                 "https://opentdb.com/api.php?amount=" + amount + 
+//                 "&category=" + category + 
+//                 "&difficulty=" + difficulty + 
+//                 "&type=" + type);
+//             const data = await response.json();
+//             // setQuestions(data);
+//             console.log(data);
+//             // console.log("question - " + data.results[currentQuestion].question + " answer - " + data.results[currentQuestion].correct_answer);
+//             return response.data;
+//         } catch (error) {
+//             return error;
+//         }
+//     }
+// );
 
 export const builderSlice = createSlice({
     name: 'builder',
@@ -42,20 +43,24 @@ export const builderSlice = createSlice({
         },
         setType: (state, action) => {
             state.type = action.payload;
+        },
+        setApiResponse: (state, action) => {
+            state.apiResponse = action.payload;
         }
-    },
-    extraReducers: (builder) => {
-        builder.addCase(getQuestions.fulfilled, (state, action) => {
-            state.entities.push(action.payload);
-        })
     }
+    // extraReducers: (builder) => {
+    //     builder.addCase(getQuestions.fulfilled, (state, action) => {
+    //         state.entities.push(action.payload);
+    //     })
+    // }
 });
 
-export const { setAmount, setCategory, setDifficulty, setType } = builderSlice.actions;
+export const { setAmount, setCategory, setDifficulty, setType, setApiResponse } = builderSlice.actions;
 
 export const selectAmount = (state) => state.builder.amount;
 export const selectCategory = (state) => state.builder.category;
 export const selectDifficulty = (state) => state.builder.difficulty;
 export const selectType = (state) => state.builder.type;
+export const selectApiResponse = (state) => state.builder.apiResponse;
 
 export default builderSlice.reducer;

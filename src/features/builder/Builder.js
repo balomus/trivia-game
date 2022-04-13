@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { selectAmount, selectCategory, selectDifficulty, selectType, setAmount, setCategory, setDifficulty, setType } from "./builderSlice";
+import { selectAmount, selectApiResponse, selectCategory, selectDifficulty, selectType, setAmount, setApiResponse, setCategory, setDifficulty, setType } from "./builderSlice";
 
 const Builder = () => {
   const [fullCategories, setFullCategories] = useState([{ id: "", name: "All Categories" }]);
@@ -30,10 +30,12 @@ const Builder = () => {
   // console.log(fullCategories);
 
   const dispatch = useDispatch();
+  
   const amount = useSelector(selectAmount);
   const category = useSelector(selectCategory);
   const difficulty = useSelector(selectDifficulty);
   const type = useSelector(selectType);
+  const apiResponse = useSelector(selectApiResponse);
 
   const array = [{id: 1, name: 'one'}, {id: 2, name: 'two'}, {id: 3, name: 'three'}];
 
@@ -43,7 +45,11 @@ const Builder = () => {
 
   const handleClick = async() => {
     console.log("clicked");
-    
+    const response = await fetch("https://opentdb.com/api.php?amount=" + amount + "&category=" + category + "&difficulty=" + difficulty + "&type=" + type);
+    const data = await response.json();
+    dispatch(setApiResponse([...data.results]));
+    console.log([...data.results]);
+    // console.log(data.results);
   }
 
   return ( 
