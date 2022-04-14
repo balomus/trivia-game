@@ -21,14 +21,23 @@ const Question = () => {
     }
 
     useEffect(() => {
-        // randomizeAnswers(currentQuestion.incorrect_answers, currentQuestion.correct_answer)
+        console.log("currentQuestion changed, useEffect ran");
+        const randomNum = Math.floor(Math.random() * 4);
+        console.log("correct answer should be index " + randomNum);
+        let newArr = [...currentQuestion.incorrect_answers];
+        newArr.splice(randomNum, 0, currentQuestion.correct_answer);
+        console.log(newArr);
+        setAnswers(newArr);
+        // setAnswers(randomizeAnswers(currentQuestion.incorrect_answer, currentQuestion.correct_answer))
     }, [currentQuestion])
 
     return ( 
         <div>
             <h2>Question # {questionNumber}</h2>
             <p>{currentQuestion.question}</p>
-            
+            {answers.map((item) => {
+                return <div key={item}><button>{item}</button></div>
+            })}
         </div>
      );
 }

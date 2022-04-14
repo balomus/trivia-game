@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { setCurrentQuestion } from "../question/questionSlice";
 import { selectAmount, selectApiResponse, selectCategory, selectDifficulty, selectType, setAmount, setApiResponse, setCategory, setDifficulty, setType } from "./builderSlice";
 
 const Builder = () => {
@@ -48,6 +49,7 @@ const Builder = () => {
     const response = await fetch("https://opentdb.com/api.php?amount=" + amount + "&category=" + category + "&difficulty=" + difficulty + "&type=" + type);
     const data = await response.json();
     dispatch(setApiResponse([...data.results]));
+    dispatch(setCurrentQuestion([...data.results][0]))
     console.log([...data.results]);
     // console.log(data.results);
   }

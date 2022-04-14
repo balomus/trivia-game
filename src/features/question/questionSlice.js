@@ -7,7 +7,7 @@ const initialState = {
         type: "type sample",
         question: "question sample",
         correct_answer: "correct sample",
-        incorrect_answer: ["incorrect1", "incorrect2", "incorrect3"]
+        incorrect_answers: ["incorrect1", "incorrect2", "incorrect3"]
     },
     questionNumber: 1
 }
