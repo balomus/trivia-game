@@ -1,32 +1,12 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
+import { createSlice } from "@reduxjs/toolkit"
 
 const initialState = {
-    amount: "20",
+    amount: "10",
     category: "",
     difficulty: "",
     type: "",
     apiResponse: []
 }
-
-// export const getQuestions = createAsyncThunk(
-//     'builder/getTriviaQuestions',
-//     async (amount, category, difficulty, type) => {
-//         try {
-//             const response = await fetch(
-//                 "https://opentdb.com/api.php?amount=" + amount + 
-//                 "&category=" + category + 
-//                 "&difficulty=" + difficulty + 
-//                 "&type=" + type);
-//             const data = await response.json();
-//             // setQuestions(data);
-//             console.log(data);
-//             // console.log("question - " + data.results[currentQuestion].question + " answer - " + data.results[currentQuestion].correct_answer);
-//             return response.data;
-//         } catch (error) {
-//             return error;
-//         }
-//     }
-// );
 
 export const builderSlice = createSlice({
     name: 'builder',
@@ -48,11 +28,6 @@ export const builderSlice = createSlice({
             state.apiResponse = action.payload;
         }
     }
-    // extraReducers: (builder) => {
-    //     builder.addCase(getQuestions.fulfilled, (state, action) => {
-    //         state.entities.push(action.payload);
-    //     })
-    // }
 });
 
 export const { setAmount, setCategory, setDifficulty, setType, setApiResponse } = builderSlice.actions;

@@ -15,20 +15,7 @@ const Builder = () => {
 
   useEffect(() => {
     fetchMyAPI();
-    // console.log(fullCategories);
-    // setFullCategories(async () => {
-    //   try {
-    //     const response = await fetch("https://opentdb.com/api_category.php");
-    //     const data = await response.json();
-    //     console.log([{ id: 999, name: "All Categories" }, ...data.trivia_categories]);
-    //     return [{ id: 999, name: "All Categories" }, ...data.trivia_categories];
-    //   } catch (error) {
-    //     return error;
-    //   }
-    // });
   }, []);
-
-  // console.log(fullCategories);
 
   const dispatch = useDispatch();
   
@@ -36,13 +23,6 @@ const Builder = () => {
   const category = useSelector(selectCategory);
   const difficulty = useSelector(selectDifficulty);
   const type = useSelector(selectType);
-  const apiResponse = useSelector(selectApiResponse);
-
-  const array = [{id: 1, name: 'one'}, {id: 2, name: 'two'}, {id: 3, name: 'three'}];
-
-  // const categoryList = fullCategories.map((category) => {
-  //   <option key={category.id}>{ category.name }</option>
-  // });
 
   const handleClick = async() => {
     console.log("clicked");
@@ -51,18 +31,17 @@ const Builder = () => {
     dispatch(setApiResponse([...data.results]));
     dispatch(setCurrentQuestion([...data.results][0]))
     console.log([...data.results]);
-    // console.log(data.results);
   }
 
   return ( 
       <div>
           # of questions: 
           <select name="amount" id="amount-select" value={amount} onChange={(e) => dispatch(setAmount(e.target.value))}>
+            <option value="5">5</option>
             <option value="10">10</option>
+            <option value="15">15</option>
             <option value="20">20</option>
-            <option value="30">30</option>
-            <option value="40">40</option>
-            <option value="50">50</option>
+            <option value="25">25</option>
           </select>
 
           <br></br>
@@ -95,15 +74,6 @@ const Builder = () => {
 
           <p>Sample API URL: https://opentdb.com/api.php?amount={amount}&category={category}&difficulty={difficulty}&type={type}</p>
           <button onClick={handleClick}>Get Trivia Questions</button>
-          {/* {array.map((item) => {
-            return <p key={item.id}>{item.name}</p>
-          })} */}
-
-          {/* <div>
-            {fullCategories.map((item) => (
-              <p key={item.id}>{item.name}</p>
-            ))}
-          </div> */}
       </div>
     );
 }
