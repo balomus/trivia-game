@@ -1,18 +1,17 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { selectApiResponse } from "../builder/builderSlice";
-import { selectCurrentQuestion, selectQuestionNumber, setCurrentQuestion, setQuestionNumber } from "./questionSlice";
+import { selectCorrectNum, selectCurrentQuestion, selectIncorrectNum, selectQuestionNumber, setCorrectNum, setCurrentQuestion, setIncorrectNum, setQuestionNumber } from "./questionSlice";
 
 const Question = () => {
     
     const currentQuestion = useSelector(selectCurrentQuestion);
     const questionNumber = useSelector(selectQuestionNumber);
+    const correctNum = useSelector(selectCorrectNum);
+    const incorrectNum = useSelector(selectIncorrectNum);
     const apiResponse = useSelector(selectApiResponse);
 
     const [answers, setAnswers] = useState(["sample1", "sample2", "sample3", "sample4"])
-
-    const [correctNum, setCorrectNum] = useState([0]);
-    const [incorrectNum, setIncorrectNum] = useState([0]);
 
     const dispatch = useDispatch();
 
@@ -37,12 +36,12 @@ const Question = () => {
         if (answer === decodeHtml(currentQuestion.correct_answer))
         {
             console.log("Right answer selected");
-            setCorrectNum(Number(correctNum) + 1);
+            dispatch(setCorrectNum(Number(correctNum) + 1));
         }
         else
         {
             console.log("Wrong answer selected");
-            setIncorrectNum(Number(incorrectNum) + 1);
+            dispatch(setIncorrectNum(Number(incorrectNum) + 1));
         }
         dispatch(setQuestionNumber(questionNumber + 1));
         dispatch(setCurrentQuestion(apiResponse[questionNumber]));
