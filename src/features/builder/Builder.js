@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setCurrentQuestion, setQuestionNumber } from "../question/questionSlice";
+import { setCorrectNum, setCurrentQuestion, setIncorrectNum, setQuestionNumber } from "../question/questionSlice";
 import { selectAmount, selectApiResponse, selectCategory, selectDifficulty, selectType, setAmount, setApiResponse, setCategory, setDifficulty, setType } from "./builderSlice";
 
 const Builder = () => {
@@ -31,6 +31,8 @@ const Builder = () => {
     dispatch(setApiResponse([...data.results]));
     dispatch(setCurrentQuestion([...data.results][0]))
     dispatch(setQuestionNumber(1));
+    dispatch(setCorrectNum(0));
+    dispatch(setIncorrectNum(0));
     console.log([...data.results]);
   }
 

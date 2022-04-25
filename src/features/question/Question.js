@@ -33,18 +33,37 @@ const Question = () => {
 
     const handleClick = (e) => {
         const answer = e.target.textContent;
-        if (answer === decodeHtml(currentQuestion.correct_answer))
+
+        const clickedButton = document.getElementById(e.target.textContent);
+
+        console.log("clickedButton = " + clickedButton);
+
+        // console.log("clickedElement is " + clickedButton + " and clickedElement.innerHTML is " + clickedButton.innerHTML);
+
+        // console.log(clickedButton.innerHTML);
+        // clickedButton.innerHTML.backgroundColor = "#000000";
+
+        // clickedElement.backgroundColor = "#000000";
+
+        if (correctNum + incorrectNum < apiResponse.length)
         {
-            console.log("Right answer selected");
-            dispatch(setCorrectNum(Number(correctNum) + 1));
+            if (answer === decodeHtml(currentQuestion.correct_answer))
+            {
+                console.log("Right answer selected");
+                dispatch(setCorrectNum(Number(correctNum) + 1));
+            }
+            else
+            {
+                console.log("Wrong answer selected");
+                dispatch(setIncorrectNum(Number(incorrectNum) + 1));
+            }
         }
-        else
+
+        if (questionNumber < apiResponse.length)
         {
-            console.log("Wrong answer selected");
-            dispatch(setIncorrectNum(Number(incorrectNum) + 1));
+            dispatch(setQuestionNumber(questionNumber + 1));
+            dispatch(setCurrentQuestion(apiResponse[questionNumber]));
         }
-        dispatch(setQuestionNumber(questionNumber + 1));
-        dispatch(setCurrentQuestion(apiResponse[questionNumber]));
     }
 
     useEffect(() => {
@@ -59,7 +78,7 @@ const Question = () => {
             <h3>{currentQuestion.category}</h3>
             <p>{decodeHtml(currentQuestion.question)}</p>
             {answers.map((item) => {
-                return <div key={decodeHtml(item)}><button onClick={handleClick}>{decodeHtml(item)}</button></div>
+                return <div key={decodeHtml(item)} id={decodeHtml(item)}><button onClick={handleClick}>{decodeHtml(item)}</button></div>
             })}
         </div>
      );
