@@ -7,6 +7,7 @@ import Question from './features/question/Question';
 import { HashRouter, Link, Outlet, Route, Routes } from "react-router-dom";
 import Correct from './routes/Correct';
 import Incorrect from './routes/Incorrect';
+import Done from './routes/Done';
 
 
 function App() {
@@ -22,6 +23,7 @@ function App() {
           <Route path="question" element={<Question />} />
           <Route path="correct" element={<Correct />} />
           <Route path="incorrect" element={<Incorrect />} />
+          <Route path="done" element={<Done />} />
         </Routes>
         <Outlet />
       </div>

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
+import { decodeHtml } from "../../decodeHtml";
 import { selectApiResponse } from "../builder/builderSlice";
 import { selectCorrectNum, selectCurrentQuestion, selectIncorrectNum, selectQuestionNumber, setCorrectNum, setCurrentQuestion, setIncorrectNum, setQuestionNumber } from "./questionSlice";
 
@@ -17,11 +18,11 @@ const Question = () => {
 
     const dispatch = useDispatch();
 
-    const decodeHtml = (html) => {
-        let txt = document.createElement("textarea");
-        txt.innerHTML = html;
-        return txt.value;
-    }
+    // const decodeHtml = (html) => {
+    //     let txt = document.createElement("textarea");
+    //     txt.innerHTML = html;
+    //     return txt.value;
+    // }
 
     const randomizeAnswers = () => {
         console.log("currentQuestion changed, useEffect ran");
@@ -63,7 +64,7 @@ const Question = () => {
             }
         }
 
-        if (questionNumber < apiResponse.length)
+        if (questionNumber <= apiResponse.length)
         {
             dispatch(setQuestionNumber(questionNumber + 1));
             dispatch(setCurrentQuestion(apiResponse[questionNumber]));
@@ -76,15 +77,17 @@ const Question = () => {
 
     return ( 
         <div>
-            <p>Correct #: {correctNum}</p>
-            <p>Incorrect #: {incorrectNum}</p>
+            <p>Correct / Incorrect: {correctNum} / {incorrectNum}</p>
+            {/* <p>Incorrect #: {incorrectNum}</p> */}
             <h2>Question # {questionNumber} of {apiResponse.length}</h2>
             <h3>{currentQuestion.category}</h3>
             <p>{decodeHtml(currentQuestion.question)}</p>
+            <br></br>
             {answers.map((item) => {
                 return <div key={decodeHtml(item)} id={decodeHtml(item)}><button onClick={handleClick}>{decodeHtml(item)}</button></div>
             })}
-            <Link to="/">Restart and generate new questions</Link>
+            <br></br>
+            <Link to="/"><button>Restart and generate new questions</button></Link>
         </div>
      );
 }

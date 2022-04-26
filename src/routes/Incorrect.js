@@ -1,21 +1,28 @@
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { decodeHtml } from "../decodeHtml";
 import { selectApiResponse } from "../features/builder/builderSlice";
-import { selectCurrentQuestion, selectQuestionNumber } from "../features/question/questionSlice";
+import { selectQuestionNumber } from "../features/question/questionSlice";
 
 const Incorrect = () => {
     const navigate = useNavigate();
 
-    // const currentQuestion = useSelector(selectCurrentQuestion);
     const questionNumber = useSelector(selectQuestionNumber);
     const apiResponse = useSelector(selectApiResponse);
 
     useEffect(() => {
         setTimeout(() => {
-            // console.log("timeout triggered")
-            navigate('/question');
-            console.log("timeout done");
+            if (questionNumber > apiResponse.length)
+            {
+                navigate('/done');
+            }
+            else
+            {
+                console.log("questionNumber = " + questionNumber + " questionNumber - 2 is  " + (questionNumber - 2) +  " apiResponse.length = " + apiResponse.length);
+                navigate('/question');
+                console.log("timeout done");
+            }
         }, 3000);
     }, [])
 
@@ -23,7 +30,7 @@ const Incorrect = () => {
         <div>
             Incorrect! The correct answer is:
             <div>
-                {apiResponse[questionNumber - 2].correct_answer}
+                {decodeHtml(apiResponse[questionNumber - 2].correct_answer)}
             </div>
         </div> 
     );

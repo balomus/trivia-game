@@ -6,7 +6,6 @@ const Correct = () => {
 
     useEffect(() => {
         setTimeout(() => {
-            // console.log("timeout triggered")
             navigate('/question');
         }, 3000);
     }, [])

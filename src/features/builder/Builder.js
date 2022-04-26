@@ -79,7 +79,8 @@ const Builder = () => {
             <option value="boolean">True / False</option>
           </select>
 
-          <p>Sample API URL: https://opentdb.com/api.php?amount={amount}&category={category}&difficulty={difficulty}&type={type}</p>
+          {/* <p>Sample API URL: https://opentdb.com/api.php?amount={amount}&category={category}&difficulty={difficulty}&type={type}</p> */}
+          <br></br>
           <button onClick={handleClick}>Get Trivia Questions</button>
       </div>
     );
