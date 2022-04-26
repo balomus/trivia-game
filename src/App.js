@@ -4,14 +4,43 @@ import './App.css';
 import Builder from './features/builder/Builder';
 import Question from './features/question/Question';
 
+import { HashRouter, Link, Outlet, Route, Routes } from "react-router-dom";
+import Correct from './routes/Correct';
+import Incorrect from './routes/Incorrect';
+
+
 function App() {
 
   return (
-    <div className="App">
-      <Builder />
-      <Question />
-    </div>
+    <HashRouter>
+      <div className="App">
+        {/* <nav>
+          <Link to="/">Generate new questions</Link>
+        </nav> */}
+        <Routes>
+          <Route path="/" element={<Builder />}/>
+          <Route path="question" element={<Question />} />
+          <Route path="correct" element={<Correct />} />
+          <Route path="incorrect" element={<Incorrect />} />
+        </Routes>
+        <Outlet />
+      </div>
+    </HashRouter>
   );
+
+  // return (
+  //   <div className="App">
+  //     <nav>
+  //       <Link to="/builder">Generate new questions</Link>
+  //        {/* | {" "}
+  //       <Link to="/question">Question</Link> */}
+  //     </nav>
+  //     <Builder />
+  //     <Question />
+      
+  //     <Outlet />
+  //   </div>
+  // );
 }
 
 export default App;

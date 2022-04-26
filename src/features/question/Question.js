@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
 import { selectApiResponse } from "../builder/builderSlice";
 import { selectCorrectNum, selectCurrentQuestion, selectIncorrectNum, selectQuestionNumber, setCorrectNum, setCurrentQuestion, setIncorrectNum, setQuestionNumber } from "./questionSlice";
 
 const Question = () => {
+    const navigate = useNavigate();
     
     const currentQuestion = useSelector(selectCurrentQuestion);
     const questionNumber = useSelector(selectQuestionNumber);
@@ -51,11 +53,13 @@ const Question = () => {
             {
                 console.log("Right answer selected");
                 dispatch(setCorrectNum(Number(correctNum) + 1));
+                navigate('/correct');
             }
             else
             {
                 console.log("Wrong answer selected");
                 dispatch(setIncorrectNum(Number(incorrectNum) + 1));
+                navigate('/incorrect');
             }
         }
 
@@ -80,6 +84,7 @@ const Question = () => {
             {answers.map((item) => {
                 return <div key={decodeHtml(item)} id={decodeHtml(item)}><button onClick={handleClick}>{decodeHtml(item)}</button></div>
             })}
+            <Link to="/">Restart and generate new questions</Link>
         </div>
      );
 }

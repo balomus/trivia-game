@@ -1,9 +1,12 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { setCorrectNum, setCurrentQuestion, setIncorrectNum, setQuestionNumber } from "../question/questionSlice";
 import { selectAmount, selectApiResponse, selectCategory, selectDifficulty, selectType, setAmount, setApiResponse, setCategory, setDifficulty, setType } from "./builderSlice";
 
 const Builder = () => {
+  const navigate = useNavigate();
+
   const [fullCategories, setFullCategories] = useState([{ id: "", name: "All Categories" }]);
 
   const fetchMyAPI = async () => {
@@ -34,6 +37,7 @@ const Builder = () => {
     dispatch(setCorrectNum(0));
     dispatch(setIncorrectNum(0));
     console.log([...data.results]);
+    navigate('/question')
   }
 
   return ( 
