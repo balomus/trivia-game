@@ -18,47 +18,25 @@ const Question = () => {
 
     const dispatch = useDispatch();
 
-    // const decodeHtml = (html) => {
-    //     let txt = document.createElement("textarea");
-    //     txt.innerHTML = html;
-    //     return txt.value;
-    // }
-
     const randomizeAnswers = () => {
-        console.log("currentQuestion changed, useEffect ran");
         const randomNum = Math.floor(Math.random() * 4);
-        console.log("correct answer should be index " + randomNum);
         let newArr = [...currentQuestion.incorrect_answers];
         newArr.splice(randomNum, 0, currentQuestion.correct_answer);
-        console.log(newArr);
         setAnswers(newArr);
     }
 
     const handleClick = (e) => {
         const answer = e.target.textContent;
 
-        const clickedButton = document.getElementById(e.target.textContent);
-
-        console.log("clickedButton = " + clickedButton);
-
-        // console.log("clickedElement is " + clickedButton + " and clickedElement.innerHTML is " + clickedButton.innerHTML);
-
-        // console.log(clickedButton.innerHTML);
-        // clickedButton.innerHTML.backgroundColor = "#000000";
-
-        // clickedElement.backgroundColor = "#000000";
-
         if (correctNum + incorrectNum < apiResponse.length)
         {
             if (answer === decodeHtml(currentQuestion.correct_answer))
             {
-                console.log("Right answer selected");
                 dispatch(setCorrectNum(Number(correctNum) + 1));
                 navigate('/correct');
             }
             else
             {
-                console.log("Wrong answer selected");
                 dispatch(setIncorrectNum(Number(incorrectNum) + 1));
                 navigate('/incorrect');
             }
@@ -79,7 +57,6 @@ const Question = () => {
         <div>
             <p><span className="green">Correct</span> / <span className="red">Incorrect</span>:</p>
             <p><span className="green">{correctNum}</span> / <span className="red">{incorrectNum}</span></p>
-            {/* <p>Incorrect #: {incorrectNum}</p> */}
             <h2>Question # {questionNumber} of {apiResponse.length}</h2>
             <h3>{currentQuestion.category}</h3>
             <p>{decodeHtml(currentQuestion.question)}</p>

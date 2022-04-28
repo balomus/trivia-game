@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { setCorrectNum, setCurrentQuestion, setIncorrectNum, setQuestionNumber } from "../question/questionSlice";
-import { selectAmount, selectApiResponse, selectCategory, selectDifficulty, selectType, setAmount, setApiResponse, setCategory, setDifficulty, setType } from "./builderSlice";
+import { selectAmount, selectCategory, selectDifficulty, selectType, setAmount, setApiResponse, setCategory, setDifficulty, setType } from "./builderSlice";
 
 const Builder = () => {
   const navigate = useNavigate();
@@ -13,7 +13,6 @@ const Builder = () => {
     let response = await fetch("https://opentdb.com/api_category.php");
     let data = await response.json();
     setFullCategories([{id: "", name: "All Categories"}, ...data.trivia_categories]);
-    console.log(data.trivia_categories);
   }
 
   useEffect(() => {
@@ -28,7 +27,6 @@ const Builder = () => {
   const type = useSelector(selectType);
 
   const handleClick = async() => {
-    console.log("clicked");
     const response = await fetch("https://opentdb.com/api.php?amount=" + amount + "&category=" + category + "&difficulty=" + difficulty + "&type=" + type);
     const data = await response.json();
     dispatch(setApiResponse([...data.results]));
@@ -36,7 +34,6 @@ const Builder = () => {
     dispatch(setQuestionNumber(1));
     dispatch(setCorrectNum(0));
     dispatch(setIncorrectNum(0));
-    console.log([...data.results]);
     navigate('/question')
   }
 
@@ -79,7 +76,6 @@ const Builder = () => {
             <option value="boolean">True / False</option>
           </select>
 
-          {/* <p>Sample API URL: https://opentdb.com/api.php?amount={amount}&category={category}&difficulty={difficulty}&type={type}</p> */}
           <br></br>
           <button onClick={handleClick} className="restart-btn">Get Trivia Questions</button>
       </div>

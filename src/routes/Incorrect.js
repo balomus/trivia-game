@@ -19,9 +19,7 @@ const Incorrect = () => {
             }
             else
             {
-                console.log("questionNumber = " + questionNumber + " questionNumber - 2 is  " + (questionNumber - 2) +  " apiResponse.length = " + apiResponse.length);
                 navigate('/question');
-                console.log("timeout done");
             }
         }, 3000);
     }, [])

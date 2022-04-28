@@ -7,7 +7,6 @@
     @apply bg-gray-700 text-white;
   }
   button {
-    /* @apply bg-blue-700 hover:bg-blue-500 text-white font-bold py-2 px-4 my-4 rounded w-11/12; */
     @apply bg-green-200 hover:bg-green-400 text-black font-bold py-2 px-4 my-4 rounded w-11/12;
   }
   select {
@@ -27,7 +26,6 @@
   }
 
   .restart-btn {
-    /* @apply bg-purple-900 hover:bg-purple-500; */
     @apply bg-slate-300 hover:bg-slate-500 text-black;
   }
 
@@ -39,17 +37,3 @@
     @apply text-red-400;
   }
 }
-
-/* body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
-} */
