@@ -77,7 +77,8 @@ const Question = () => {
 
     return ( 
         <div>
-            <p>Correct / Incorrect: {correctNum} / {incorrectNum}</p>
+            <p><span className="green">Correct</span> / <span className="red">Incorrect</span>:</p>
+            <p><span className="green">{correctNum}</span> / <span className="red">{incorrectNum}</span></p>
             {/* <p>Incorrect #: {incorrectNum}</p> */}
             <h2>Question # {questionNumber} of {apiResponse.length}</h2>
             <h3>{currentQuestion.category}</h3>
@@ -87,7 +88,7 @@ const Question = () => {
                 return <div key={decodeHtml(item)} id={decodeHtml(item)}><button onClick={handleClick}>{decodeHtml(item)}</button></div>
             })}
             <br></br>
-            <Link to="/"><button>Restart and generate new questions</button></Link>
+            <Link to="/"><button className="restart-btn">Restart and generate new questions</button></Link>
         </div>
      );
 }

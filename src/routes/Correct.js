@@ -12,7 +12,7 @@ const Correct = () => {
 
     return ( 
         <div>
-            Correct!
+            <h2 className="green">Correct!</h2>
         </div> 
     );
 }

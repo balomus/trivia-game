@@ -42,7 +42,7 @@ const Builder = () => {
 
   return ( 
       <div>
-          # of questions: 
+          <h3># of questions: </h3>
           <select name="amount" id="amount-select" value={amount} onChange={(e) => dispatch(setAmount(e.target.value))}>
             <option value="5">5</option>
             <option value="10">10</option>
@@ -53,7 +53,7 @@ const Builder = () => {
 
           <br></br>
 
-          Category: 
+          <h3>Category: </h3>
           <select name="category" id="category-select" value={category} onChange={(e) => dispatch(setCategory(e.target.value))}>
             {fullCategories.map((item) => {
               return <option value={item.id} key={item.id}>{item.name}</option>
@@ -62,7 +62,7 @@ const Builder = () => {
 
           <br></br>
 
-          Difficulty: 
+          <h3>Difficulty: </h3>
           <select name="difficulty" id="difficulty-select" value={difficulty} onChange={(e) => dispatch(setDifficulty(e.target.value))}>
             <option value="">Any Difficulty</option>
             <option value="easy">Easy</option>
@@ -72,7 +72,7 @@ const Builder = () => {
 
           <br></br>
 
-          Type: 
+          <h3>Type: </h3>
           <select name="type" id="type-select" value={type} onChange={(e) => dispatch(setType(e.target.value))}>
             <option value="">Any Type</option>
             <option value="multiple">Multiple Choice</option>
@@ -81,7 +81,7 @@ const Builder = () => {
 
           {/* <p>Sample API URL: https://opentdb.com/api.php?amount={amount}&category={category}&difficulty={difficulty}&type={type}</p> */}
           <br></br>
-          <button onClick={handleClick}>Get Trivia Questions</button>
+          <button onClick={handleClick} className="restart-btn">Get Trivia Questions</button>
       </div>
     );
 }

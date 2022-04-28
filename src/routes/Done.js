@@ -9,8 +9,10 @@ const Done = () => {
     return ( 
         <div>
             <h2>Final score:</h2>
-            <p>Correct / Incorrect: {correctNum} / {incorrectNum}</p>
-            <Link to="/"><button>Restart and generate new questions</button></Link>
+            <p><span className="green">Correct</span> / <span className="red">Incorrect</span>:</p>
+            <p><span className="green">{correctNum}</span> / <span className="red">{incorrectNum}</span></p>
+            {/* <p>Correct / Incorrect: {correctNum} / {incorrectNum}</p> */}
+            <Link to="/"><button className="restart-btn">Restart and generate new questions</button></Link>
         </div>
      );
 }

@@ -14,7 +14,7 @@ function App() {
 
   return (
     <HashRouter>
-      <div className="App">
+      <div className="App wrapper">
         {/* <nav>
           <Link to="/">Generate new questions</Link>
         </nav> */}

@@ -28,7 +28,8 @@ const Incorrect = () => {
 
     return ( 
         <div>
-            Incorrect! The correct answer is:
+            <h2 className="red">Incorrect!</h2>
+            <p>The correct answer is:</p>
             <div>
                 {decodeHtml(apiResponse[questionNumber - 2].correct_answer)}
             </div>

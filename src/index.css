@@ -2,15 +2,41 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer components {
+@layer base {
   body {
     @apply bg-gray-700 text-white;
   }
   button {
-    @apply bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded;
+    /* @apply bg-blue-700 hover:bg-blue-500 text-white font-bold py-2 px-4 my-4 rounded w-11/12; */
+    @apply bg-green-200 hover:bg-green-400 text-black font-bold py-2 px-4 my-4 rounded w-11/12;
   }
   select {
-    @apply text-black;
+    @apply text-black w-11/12 my-4;
+  }
+  h2 {
+    @apply text-4xl;
+  }
+  h3 {
+    @apply text-2xl;
+  }
+}
+
+@layer components {
+  .wrapper {
+    @apply h-screen flex flex-col justify-center items-center text-center;
+  }
+
+  .restart-btn {
+    /* @apply bg-purple-900 hover:bg-purple-500; */
+    @apply bg-slate-300 hover:bg-slate-500 text-black;
+  }
+
+  .green {
+    @apply text-green-400;
+  }
+
+  .red {
+    @apply text-red-400;
   }
 }
 
