@@ -29,12 +29,19 @@ const Builder = () => {
   const handleClick = async() => {
     const response = await fetch("https://opentdb.com/api.php?amount=" + amount + "&category=" + category + "&difficulty=" + difficulty + "&type=" + type);
     const data = await response.json();
-    dispatch(setApiResponse([...data.results]));
-    dispatch(setCurrentQuestion([...data.results][0]))
-    dispatch(setQuestionNumber(1));
-    dispatch(setCorrectNum(0));
-    dispatch(setIncorrectNum(0));
-    navigate('/question')
+    if (data.response_code === 1)
+    {
+      window.alert("Unfortunately, the Open Trivia Database doesn't have enough questions for you. Try more generalized criteria, less questions, or a different category.");
+    }
+    else
+    {
+      dispatch(setApiResponse([...data.results]));
+      dispatch(setCurrentQuestion([...data.results][0]))
+      dispatch(setQuestionNumber(1));
+      dispatch(setCorrectNum(0));
+      dispatch(setIncorrectNum(0));
+      navigate('/question')
+    }
   }
 
   return ( 
@@ -78,6 +85,10 @@ const Builder = () => {
 
           <br></br>
           <button onClick={handleClick} className="restart-btn">Get Trivia Questions</button>
+          {/* <div>
+            Sample URL: <br></br>
+            https://opentdb.com/api.php?amount={amount}&category={category}&difficulty={difficulty}&type={type}
+          </div> */}
       </div>
     );
 }
